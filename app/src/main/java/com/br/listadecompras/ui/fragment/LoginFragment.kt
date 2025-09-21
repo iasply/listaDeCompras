@@ -11,12 +11,12 @@ import com.br.listadecompras.databinding.FragmentLoginBinding
 import com.br.listadecompras.ui.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
-    private lateinit var binding : FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding
 
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding= FragmentLoginBinding.bind(view)
+        binding = FragmentLoginBinding.bind(view)
 
         binding.btnLogin.setOnClickListener {
             val username = binding.etEmail.text.toString()
@@ -34,10 +34,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             } else {
                 binding.etPassword.text.clear()
                 binding.etEmail.text.clear()
-                Toast.makeText(requireContext(), "Usuário ou senha incorretos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Usuário ou senha incorretos", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
-
 
 
     }

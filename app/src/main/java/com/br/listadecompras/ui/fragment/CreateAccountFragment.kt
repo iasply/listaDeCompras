@@ -8,13 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.br.listadecompras.R
 import com.br.listadecompras.databinding.FragmentCreateAccountBinding
-import com.br.listadecompras.databinding.FragmentLoginBinding
 import com.br.listadecompras.ui.viewmodel.CreateAccountViewModel
-import com.br.listadecompras.ui.viewmodel.LoginViewModel
 
 class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
 
-    private lateinit var binding : FragmentCreateAccountBinding
+    private lateinit var binding: FragmentCreateAccountBinding
     private val viewModel: CreateAccountViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

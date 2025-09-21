@@ -17,7 +17,7 @@ class UserDAO {
     }
 
     fun login(email: String, password: String): User? {
-        val user = db.users.find { it.email == email &&  it.password == password}
+        val user = db.users.find { it.email == email && it.password == password }
         return user
     }
 

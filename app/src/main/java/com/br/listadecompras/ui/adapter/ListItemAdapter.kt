@@ -3,11 +3,13 @@ package com.br.listadecompras.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.br.listadecompras.data.model.ListItem
 import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.databinding.ListItemBinding
 
-class ListAdapter(private val items: List<ListItemAggregator>) :
-    RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+class ListItemAdapter(
+    private val items: List<ListItem>, private val onCheckedChange: (ListItem, Boolean) -> Unit,private val onItemClick: (ListItem) -> Unit
+) : RecyclerView.Adapter<ListItemAdapter.ListViewHolder>() {
 
     class ListViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -18,9 +20,23 @@ class ListAdapter(private val items: List<ListItemAggregator>) :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = items[position]
-        holder.binding.itemImage.setImageResource(item.imageResId)
-        holder.binding.itemText.text = item.name
+
+        holder.binding.textView.text = item.name
+        holder.binding.imageView.setImageResource(android.R.drawable.ic_menu_gallery)
+
+        holder.binding.checkBox.isChecked = item.checked
+
+        holder.binding.checkBox.setOnCheckedChangeListener(null)
+
+        holder.binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
+            onCheckedChange(item, isChecked)
+        }
+
+        holder.binding.root.setOnClickListener {
+            onItemClick(item)
+        }
     }
+
 
     override fun getItemCount() = items.size
 }

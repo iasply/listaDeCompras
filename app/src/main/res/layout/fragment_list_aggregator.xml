@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/topbar_menu"
+        app:menu="@menu/topbar_search"
         app:title="" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

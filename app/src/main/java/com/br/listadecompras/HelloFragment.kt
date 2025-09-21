@@ -2,8 +2,6 @@ package com.br.listadecompras
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 

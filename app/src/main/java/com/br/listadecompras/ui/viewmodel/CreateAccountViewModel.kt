@@ -15,8 +15,10 @@ class CreateAccountViewModel : ViewModel() {
         when {
             name.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank() ->
                 _createAccountResult.value = "Todos os campos são obrigatórios"
+
             password != confirmPassword ->
                 _createAccountResult.value = "As senhas não coincidem"
+
             else -> {
                 val success = userDAO.createUser(User(null, name, password, email))
                 _createAccountResult.value = if (success) {
