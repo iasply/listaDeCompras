@@ -11,13 +11,14 @@ import com.br.listadecompras.R
 import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.databinding.ListAggregatorItemBinding
 
-class ListAggregatorItemAdapter( items: List<ListItemAggregator> ) :
+class ListAggregatorItemAdapter(items: List<ListItemAggregator>) :
     RecyclerView.Adapter<ListAggregatorItemAdapter.ListViewHolder>() {
     var items: List<ListItemAggregator> = items
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
     class ListViewHolder(val binding: ListAggregatorItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 

@@ -50,7 +50,7 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
     }
 
     private fun setupSaveButton(itemId: Int?) {
-        if (itemId !=  null && itemId != 0) {
+        if (itemId != null && itemId != 0) {
             // Modo edição
             editingItem = viewModel.getById(itemId)
             editingItem?.let { item ->
@@ -77,7 +77,11 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                     val category = binding.spinnerCategory.selectedItem as TypeCategoryEnum
 
                     if (name.isBlank() || qtde == null) {
-                        Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Preencha todos os campos",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         return@setOnClickListener
                     }
 
@@ -89,10 +93,18 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                     )
 
                     if (viewModel.updateItem(updatedItem)) {
-                        Toast.makeText(requireContext(), "Item atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Item atualizado com sucesso!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         navigateBack()
                     } else {
-                        Toast.makeText(requireContext(), "Erro ao atualizar item", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Erro ao atualizar item",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -106,7 +118,8 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                 val category = binding.spinnerCategory.selectedItem as TypeCategoryEnum
 
                 if (name.isBlank() || qtde == null) {
-                    Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 }
 
@@ -121,7 +134,8 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                 )
 
                 if (viewModel.saveItem(newItem)) {
-                    Toast.makeText(requireContext(), "Item salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Item salvo com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     navigateBack()
                 } else {
                     Toast.makeText(requireContext(), "Item já existe!", Toast.LENGTH_SHORT).show()

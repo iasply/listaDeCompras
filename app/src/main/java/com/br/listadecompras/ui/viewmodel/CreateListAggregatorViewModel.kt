@@ -9,6 +9,7 @@ import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.data.repository.ListItemAggregatorDAO
 import com.br.listadecompras.data.repository.ListItemDAO
 import java.util.Date
+
 class CreateListAggregatorViewModel : ViewModel() {
 
     private val listItemAggregatorDAO = ListItemAggregatorDAO()

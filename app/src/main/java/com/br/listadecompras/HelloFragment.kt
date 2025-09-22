@@ -13,7 +13,7 @@ class HelloFragment : Fragment(R.layout.fragment_hello) {
         // Esconde a ActionBar global (só nessa tela)
         (requireActivity() as? androidx.appcompat.app.AppCompatActivity)?.supportActionBar?.hide()
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        view.findViewById<MaterialToolbar>(R.id.toolbar)
 
     }
 

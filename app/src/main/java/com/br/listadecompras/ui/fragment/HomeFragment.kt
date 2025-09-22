@@ -9,12 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.br.listadecompras.R
-import com.br.listadecompras.data.repository.ListItemAggregatorDAO
 import com.br.listadecompras.databinding.FragmentHomeBinding
 import com.br.listadecompras.ui.adapter.ListAggregatorItemAdapter
-import com.br.listadecompras.ui.viewmodel.CreateListItemViewModel
 import com.br.listadecompras.ui.viewmodel.HomeViewModel
-import kotlin.getValue
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding

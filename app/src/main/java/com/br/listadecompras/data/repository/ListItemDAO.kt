@@ -1,7 +1,6 @@
 package com.br.listadecompras.data.repository
 
 import com.br.listadecompras.data.model.ListItem
-import com.br.listadecompras.data.model.ListItemAggregator
 
 class ListItemDAO {
 
