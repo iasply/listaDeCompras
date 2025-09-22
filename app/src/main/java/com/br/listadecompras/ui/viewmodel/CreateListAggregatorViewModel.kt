@@ -30,7 +30,7 @@ class CreateListAggregatorViewModel : ViewModel() {
             imageUri = uri.toString(),
             name = name,
             createdAt = Date(),
-            Session.userLogged
+            Session.userLogged!!.id!!
         )
 
         val success = if (existingId == null) {

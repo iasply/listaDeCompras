@@ -11,9 +11,13 @@ import com.br.listadecompras.R
 import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.databinding.ListAggregatorItemBinding
 
-class ListAggregatorItemAdapter(private val items: List<ListItemAggregator>) :
+class ListAggregatorItemAdapter( items: List<ListItemAggregator> ) :
     RecyclerView.Adapter<ListAggregatorItemAdapter.ListViewHolder>() {
-
+    var items: List<ListItemAggregator> = items
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
     class ListViewHolder(val binding: ListAggregatorItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -36,4 +40,6 @@ class ListAggregatorItemAdapter(private val items: List<ListItemAggregator>) :
     }
 
     override fun getItemCount() = items.size
+
+
 }

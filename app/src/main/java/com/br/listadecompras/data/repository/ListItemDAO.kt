@@ -1,6 +1,7 @@
 package com.br.listadecompras.data.repository
 
 import com.br.listadecompras.data.model.ListItem
+import com.br.listadecompras.data.model.ListItemAggregator
 
 class ListItemDAO {
 
@@ -48,4 +49,9 @@ class ListItemDAO {
         return db.listItem.find { it.id == itemId }
     }
 
+    fun filterByUserAndQuery(idAggregator: Int, query: String): List<ListItem> {
+        return db.listItem.filter {
+            it.idListAggregator == idAggregator && it.name.contains(query, ignoreCase = true)
+        }
+    }
 }

@@ -8,9 +8,13 @@ import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.databinding.ListItemBinding
 
 class ListItemAdapter(
-    private val items: List<ListItem>, private val onCheckedChange: (ListItem, Boolean) -> Unit,private val onItemClick: (ListItem) -> Unit
+     items: List<ListItem>, private val onCheckedChange: (ListItem, Boolean) -> Unit,private val onItemClick: (ListItem) -> Unit
 ) : RecyclerView.Adapter<ListItemAdapter.ListViewHolder>() {
-
+    var items: List<ListItem> = items
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
     class ListViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {

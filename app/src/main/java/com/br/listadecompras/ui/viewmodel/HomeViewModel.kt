@@ -15,4 +15,10 @@ class HomeViewModel : ViewModel() {
     fun logout() {
         Session.userLogged = null
     }
+
+
+    fun filter(query: String): List<ListItemAggregator> {
+        val userId = Session.userLogged?.id ?: return emptyList()
+        return listItemAggregatorDAO.filterByUserAndQuery(userId, query)
+    }
 }

@@ -2,8 +2,8 @@ package com.br.listadecompras.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +18,7 @@ import kotlin.getValue
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
-
+    private lateinit var adapter: ListAggregatorItemAdapter
     private val viewModel: HomeViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,27 +31,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupToolBar() {
+        val searchItem = binding.toolbar.menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                query?.let { adapter.items = viewModel.filter(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    viewModel.filter(it)
+                }
+                return true
+            }
+
+        })
+
+        searchView.setOnCloseListener {
+            Toast.makeText(requireContext(), "Pesquisa fechada", Toast.LENGTH_SHORT).show()
+            adapter.items = viewModel.getAll()
+            false
+        }
+
         binding.toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_logout -> {
                     viewModel.logout()
                     findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-                    true
-                }
-
-                R.id.action_search -> {
-                    val searchView = item.actionView as SearchView
-                    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                        override fun onQueryTextSubmit(query: String?): Boolean {
-                            Toast.makeText(requireContext(), "Buscando: $query", Toast.LENGTH_SHORT)
-                                .show()
-                            return true
-                        }
-
-                        override fun onQueryTextChange(newText: String?): Boolean {
-                            return true
-                        }
-                    })
                     true
                 }
 
@@ -72,6 +81,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.recyclerView.adapter = ListAggregatorItemAdapter(viewModel.getAll())
+        adapter = ListAggregatorItemAdapter(viewModel.getAll())
+        binding.recyclerView.adapter = adapter
     }
 }

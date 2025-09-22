@@ -38,4 +38,10 @@ class ListItemAggregatorDAO {
     fun getAllByUser(idUser : Int): List<ListItemAggregator> = db.listAggregator.filter { it.idUser == idUser }
 
     fun getById(id: Int): ListItemAggregator? = db.listAggregator.find { it.id == id }
+
+    fun filterByUserAndQuery(idUser: Int, query: String): List<ListItemAggregator> {
+        return db.listAggregator.filter {
+            it.idUser == idUser && it.name.contains(query, ignoreCase = true)
+        }
+    }
 }
