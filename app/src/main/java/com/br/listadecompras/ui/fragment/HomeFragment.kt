@@ -77,6 +77,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        )
 
 
+
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = ListAggregatorItemAdapter(viewModel.getAll())
         binding.recyclerView.adapter = adapter

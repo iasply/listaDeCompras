@@ -27,7 +27,6 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCreateListItemBinding.bind(view)
 
-        // Recupera aggregatorId e itemId
         listAggregatorId = arguments?.getInt(Const.AGGREGATOR_ID_BUNDLE) ?: -1
         val itemId = arguments?.getInt(Const.ITEM_ID_BUNDLE)
 
@@ -51,13 +50,11 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
 
     private fun setupSaveButton(itemId: Int?) {
         if (itemId != null && itemId != 0) {
-            // Modo edição
             editingItem = viewModel.getById(itemId)
             editingItem?.let { item ->
                 binding.editTextName.setText(item.name)
                 binding.editTextQtde.setText(item.qtde.toString())
 
-                // Seleciona valores dos spinners
                 binding.spinnerUnit.setSelection(TypeUnitEnum.entries.indexOf(item.unit))
                 binding.spinnerCategory.setSelection(TypeCategoryEnum.entries.indexOf(item.category))
 
@@ -109,7 +106,6 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                 }
             }
         } else {
-            // Modo criação
             binding.buttonDelete.visibility = View.GONE
             binding.buttonSave.setOnClickListener {
                 val name = binding.editTextName.text.toString()

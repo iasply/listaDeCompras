@@ -95,16 +95,16 @@ class CreateListAggregatorFragment : Fragment(R.layout.fragment_create_list_aggr
 
     private fun onSave() {
         val name = binding.editTextName.text.toString()
-        val uri = selectedImageUri
-        if (name.isNotBlank() && uri != null) {
-            val path = copyUriToInternalStorage(uri)
+        val path = copyUriToInternalStorage(selectedImageUri) ?: ("android.resource://${requireContext().packageName}/${R.drawable.ic_launcher_background}")
+        if (name.isNotBlank() ) {
             viewModel.save(path.toUri(), name, editingId)
         } else {
-            Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Preencha o nome", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun copyUriToInternalStorage(uri: Uri): String {
+    private fun copyUriToInternalStorage(uri: Uri?): String? {
+        if(uri == null ) return null
         val inputStream = requireContext().contentResolver.openInputStream(uri)
         val file = File(requireContext().filesDir, "img_${System.currentTimeMillis()}.jpg")
         val outputStream = FileOutputStream(file)

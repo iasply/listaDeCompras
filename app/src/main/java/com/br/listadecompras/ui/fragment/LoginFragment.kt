@@ -23,6 +23,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = binding.etPassword.text.toString()
             viewModel.login(username, password)
         }
+        binding.imageView2.setImageResource(R.mipmap.ic_launcher)
+
 
         binding.btnCreateAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
