@@ -27,9 +27,9 @@ class ListAggregatorFragment : Fragment(R.layout.fragment_list_aggregator) {
         setupRecyclerView()
         setupToolbar()
         setupFab()
-
         listAggregatorId = arguments?.getInt(Const.AGGREGATOR_ID_BUNDLE) ?: -1
         if (listAggregatorId != -1) {
+            binding.displayText.text = viewModel.getName(listAggregatorId)
             viewModel.loadItems(listAggregatorId)
         }
 
