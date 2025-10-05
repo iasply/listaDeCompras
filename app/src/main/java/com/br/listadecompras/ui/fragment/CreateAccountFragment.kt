@@ -16,26 +16,34 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
     private val viewModel: CreateAccountViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         binding = FragmentCreateAccountBinding.bind(view)
 
+        setupObservers()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
         binding.btnRegister.setOnClickListener {
-            val name = binding.etName.text.toString()
-            val email = binding.etEmail.text.toString()
+            val name = binding.etName.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString()
             val confirmPassword = binding.etConfirmPassword.text.toString()
 
             viewModel.createAccount(name, email, password, confirmPassword)
         }
+    }
 
+    private fun setupObservers() {
         viewModel.createAccountResult.observe(viewLifecycleOwner) { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            message?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
-            if (message == "Cadastro realizado com sucesso") {
-                findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
+                if (it == "Cadastro realizado com sucesso") {
+                    findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
+                }
+
+                viewModel.clearResult()
             }
         }
     }
-
-
 }

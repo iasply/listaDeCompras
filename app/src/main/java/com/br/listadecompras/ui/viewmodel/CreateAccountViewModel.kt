@@ -1,5 +1,6 @@
 package com.br.listadecompras.ui.viewmodel
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,17 +8,25 @@ import com.br.listadecompras.data.model.User
 import com.br.listadecompras.data.repository.UserDAO
 
 class CreateAccountViewModel : ViewModel() {
-    private val userDAO: UserDAO = UserDAO()
-    private val _createAccountResult = MutableLiveData<String>()
-    val createAccountResult: LiveData<String> = _createAccountResult
+
+    private val userDAO = UserDAO()
+
+    private val _createAccountResult = MutableLiveData<String?>()
+    val createAccountResult: LiveData<String?> = _createAccountResult
 
     fun createAccount(name: String, email: String, password: String, confirmPassword: String) {
         when {
-            name.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank() ->
+            name.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank() -> {
                 _createAccountResult.value = "Todos os campos são obrigatórios"
+            }
 
-            password != confirmPassword ->
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                _createAccountResult.value = "Formato de e-mail inválido"
+            }
+
+            password != confirmPassword -> {
                 _createAccountResult.value = "As senhas não coincidem"
+            }
 
             else -> {
                 val success = userDAO.createUser(User(null, name, password, email))
@@ -28,5 +37,9 @@ class CreateAccountViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun clearResult() {
+        _createAccountResult.value = null
     }
 }

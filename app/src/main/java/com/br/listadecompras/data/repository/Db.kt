@@ -13,7 +13,7 @@ object Db {
     var listItem = mutableListOf<ListItem>()
 
     init {
-        users.add(User(1, "i", "i", "i"))
+        users.add(User(idUser++, "i", "i", "i@gmail.com"))
     }
 
 }

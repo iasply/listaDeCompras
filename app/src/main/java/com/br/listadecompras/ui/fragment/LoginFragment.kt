@@ -11,37 +11,43 @@ import com.br.listadecompras.databinding.FragmentLoginBinding
 import com.br.listadecompras.ui.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
-    private lateinit var binding: FragmentLoginBinding
 
+    private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentLoginBinding.bind(view)
 
-        binding.btnLogin.setOnClickListener {
-            val username = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-            viewModel.login(username, password)
-        }
         binding.imageView2.setImageResource(R.mipmap.ic_launcher)
 
+        binding.btnLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            viewModel.login(email, password)
+        }
 
         binding.btnCreateAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
         }
 
-        viewModel.loginResult.observe(viewLifecycleOwner) { success ->
-            if (success != null) {
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-            } else {
-                binding.etPassword.text.clear()
-                binding.etEmail.text.clear()
-                Toast.makeText(requireContext(), "Usuário ou senha incorretos", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-
-
+        observeViewModel()
     }
 
+    private fun observeViewModel() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+
+                is LoginViewModel.UiState.Success -> {
+                    Toast.makeText(requireContext(), "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                }
+
+                is LoginViewModel.UiState.Error -> {
+                    binding.etPassword.text.clear()
+                    binding.etEmail.text.clear()
+                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 }

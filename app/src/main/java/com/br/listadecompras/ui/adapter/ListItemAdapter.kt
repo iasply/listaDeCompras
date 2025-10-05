@@ -3,7 +3,9 @@ package com.br.listadecompras.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.br.listadecompras.R
 import com.br.listadecompras.data.model.ListItem
+import com.br.listadecompras.data.model.TypeCategoryEnum
 import com.br.listadecompras.databinding.ListItemBinding
 
 class ListItemAdapter(
@@ -27,8 +29,17 @@ class ListItemAdapter(
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = items[position]
 
-        holder.binding.textView.text = item.name
-        holder.binding.imageView.setImageResource(android.R.drawable.ic_menu_gallery)
+        holder.binding.textView.text = "${item.name} - ${item.qtde} ${item.unit}"
+
+
+        val img = when (item.category) {
+            TypeCategoryEnum.FRUTA -> R.mipmap.fruta
+            TypeCategoryEnum.VERDURA -> R.mipmap.verdura
+            TypeCategoryEnum.CARNE -> R.mipmap.carne
+            TypeCategoryEnum.GRAOS -> R.mipmap.graos
+            TypeCategoryEnum.OUTROS -> R.mipmap.outros
+        }
+        holder.binding.imageView.setImageResource(img)
 
         holder.binding.checkBox.isChecked = item.checked
 

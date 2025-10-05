@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.br.listadecompras.R
+import com.br.listadecompras.Session
 import com.br.listadecompras.databinding.FragmentHomeBinding
 import com.br.listadecompras.ui.adapter.ListAggregatorItemAdapter
 import com.br.listadecompras.ui.viewmodel.HomeViewModel
@@ -64,20 +65,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 else -> false
             }
         }
+
+        binding.displayText.text = "Suas listas  - ${Session.userLogged?.name}"
     }
 
     private fun setupRecycler() {
-//        val exampleItems = listOf(
-//            ListItemAggregator(null, "android.resource://android/" + android.R.drawable.ic_menu_camera, "Câmera", Date()),
-//            ListItemAggregator(null, "android.resource://android/" + android.R.drawable.ic_menu_gallery, "Galeria", Date()),
-//            ListItemAggregator(null, "android.resource://android/" + android.R.drawable.ic_menu_compass, "Mapa",
-//                Date()
-//            ),
-//            ListItemAggregator(null, "android.resource://android/" + android.R.drawable.ic_menu_call, "Telefone", Date())
-//        )
-
-
-
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = ListAggregatorItemAdapter(viewModel.getAll())
         binding.recyclerView.adapter = adapter

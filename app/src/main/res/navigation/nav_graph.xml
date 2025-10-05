@@ -22,7 +22,7 @@
 
         <action
             android:id="@+id/action_homeFragment_to_listAggregatorFragment"
-            app:destination="@+id/ListAggregatorFragment" />
+            app:destination="@id/ListAggregatorFragment" />
     </fragment>
 
     <fragment
@@ -64,7 +64,7 @@
 
 
         <action
-            android:id="@+id/action_createListAggregatorFragment_to_lisAggregatorFragment"
+            android:id="@+id/action_createListAggregatorFragment_to_listAggregatorFragment"
             app:destination="@id/ListAggregatorFragment"
             app:popUpTo="@id/createListAggregatorFragment"
             app:popUpToInclusive="true" />
