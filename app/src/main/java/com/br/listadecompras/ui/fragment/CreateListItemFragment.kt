@@ -138,6 +138,8 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                 }
             }
         }
+        binding.toolbar.title = findNavController().currentDestination?.label
+
     }
 
     private fun navigateBack() {

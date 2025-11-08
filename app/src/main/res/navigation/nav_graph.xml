@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/createAccountFragment"
         android:name="com.br.listadecompras.ui.fragment.CreateAccountFragment"
-        android:label="Create Account">
+        android:label="Criar Conta">
         <action
             android:id="@+id/action_createAccountFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/createListAggregatorFragment"
         android:name="com.br.listadecompras.ui.fragment.CreateListAggregatorFragment"
-        android:label="Create List Aggregator">
+        android:label="Criar Lista">
         <action
             android:id="@+id/action_createListAggregatorFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -74,7 +74,7 @@
     <fragment
         android:id="@+id/ListAggregatorFragment"
         android:name="com.br.listadecompras.ui.fragment.ListAggregatorFragment"
-        android:label="List Aggregator">
+        android:label="Items Da Lista">
         <action
             android:id="@+id/action_listAggregatorFragment_to_createListItemFragment"
             app:destination="@id/createListItemFragment" />
@@ -87,7 +87,7 @@
     <fragment
         android:id="@+id/createListItemFragment"
         android:name="com.br.listadecompras.ui.fragment.CreateListItemFragment"
-        android:label="Create list item"  >
+        android:label="Criar Item Na Lista"  >
     <action
         android:id="@+id/action_createListItemFragment_to_listAggregatorFragment"
         app:destination="@id/ListAggregatorFragment"

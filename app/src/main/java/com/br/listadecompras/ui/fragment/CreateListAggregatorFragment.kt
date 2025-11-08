@@ -37,6 +37,8 @@ class CreateListAggregatorFragment : Fragment(R.layout.fragment_create_list_aggr
         editingId?.let { viewModel.load(it) }
 
         binding.buttonSave.setOnClickListener { onSave() }
+        binding.toolbar.title = findNavController().currentDestination?.label
+
     }
 
     private fun initPickImage() {

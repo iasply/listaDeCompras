@@ -45,5 +45,7 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
                 viewModel.clearResult()
             }
         }
+        binding.toolbar.title = findNavController().currentDestination?.label
+
     }
 }

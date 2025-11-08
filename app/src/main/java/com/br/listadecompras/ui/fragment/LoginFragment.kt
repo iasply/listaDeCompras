@@ -49,5 +49,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
+
+        binding.toolbar.title = findNavController().currentDestination?.label
+
+
     }
 }

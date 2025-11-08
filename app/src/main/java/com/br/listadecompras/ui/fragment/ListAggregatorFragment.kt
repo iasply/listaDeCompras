@@ -88,6 +88,8 @@ class ListAggregatorFragment : Fragment(R.layout.fragment_list_aggregator) {
                 else -> false
             }
         }
+        binding.toolbar.title = findNavController().currentDestination?.label
+
     }
 
     private fun setupFab() {

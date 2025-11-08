@@ -1,8 +1,10 @@
 package com.br.listadecompras.ui.fragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -57,14 +59,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_logout -> {
-                    viewModel.logout()
-                    findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Sair da conta?")
+                        .setMessage("Tem certeza de que deseja encerrar a sessão?")
+                        .setPositiveButton("Sim") { dialogInterface: DialogInterface, which: Int ->
+                            viewModel.logout()
+                            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+                            Toast.makeText(requireContext(), "Logout realizado com sucesso", Toast.LENGTH_SHORT).show()
+                        }
+                        .setNegativeButton("Cancelar") { dialogInterface: DialogInterface, which: Int ->
+                            dialogInterface.dismiss()
+                        }
+                        .show()
                     true
                 }
+
 
                 else -> false
             }
         }
+        binding.toolbar.title = findNavController().currentDestination?.label
+
 
         binding.displayText.text = "Suas listas  - ${Session.userLogged?.name}"
     }
