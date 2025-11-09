@@ -1,14 +1,39 @@
 <resources>
-    <style name="Theme.ListaDeCompras" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <style name="Theme.ListaDeCompras" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Core colors -->
         <item name="colorPrimary">@color/green_500</item>
-        <item name="colorPrimaryVariant">@color/green_700</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/orange_500</item>
-        <item name="colorSecondaryVariant">@color/orange_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:colorBackground">@color/background_light</item>
-        <item name="colorSurface">@color/surface_light</item>
-        <item name="colorOnSurface">@color/on_surface_light</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="colorPrimaryContainer">@color/green_100</item>
+        <item name="colorOnPrimaryContainer">@color/green_900</item>
+
+        <item name="colorSecondary">@color/teal_500</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/teal_100</item>
+        <item name="colorOnSecondaryContainer">@color/teal_900</item>
+
+        <item name="colorTertiary">@color/amber_500</item>
+        <item name="colorOnTertiary">@color/black</item>
+        <item name="colorTertiaryContainer">@color/amber_100</item>
+        <item name="colorOnTertiaryContainer">@color/amber_900</item>
+
+        <!-- Surfaces -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurfaceVariant">@color/gray_100</item>
+        <item name="colorOnSurfaceVariant">@color/gray_800</item>
+        <item name="colorOnBackground">@color/black</item>
+
+        <!-- Errors -->
+        <item name="colorError">@color/red_700</item>
+        <item name="colorOnError">@color/white</item>
+
+        <!-- System bars -->
+        <item name="android:statusBarColor">?attr/colorSurfaceVariant</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+
+        <!-- Components -->
+        <item name="android:buttonStyle">@style/Widget.Material3.Button</item>
     </style>
+
 </resources>

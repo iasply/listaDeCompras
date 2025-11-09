@@ -1,16 +1,35 @@
 <resources>
+    <!-- Green -->
+    <color name="green_100">#D0F0C0</color>
     <color name="green_200">#A5D6A7</color>
     <color name="green_500">#4CAF50</color>
     <color name="green_700">#388E3C</color>
-    <color name="orange_200">#FFCC80</color>
-    <color name="orange_500">#FF9800</color>
-    <color name="orange_700">#F57C00</color>
-    <color name="background_light">#FFFFFFFF</color>
-    <color name="surface_light">#FFFDFDFD</color>
-    <color name="on_surface_light">#212121</color>
-    <color name="background_dark">#121212</color>
-    <color name="surface_dark">#1E1E1E</color>
-    <color name="on_surface_dark">#E0E0E0</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="green_900">#1B5E20</color>
+
+    <!-- Teal -->
+    <color name="teal_100">#B2DFDB</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_500">#009688</color>
+    <color name="teal_700">#00796B</color>
+    <color name="teal_900">#004D40</color>
+
+    <!-- Amber -->
+    <color name="amber_100">#FFECB3</color>
+    <color name="amber_200">#FFE082</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="amber_700">#FFA000</color>
+    <color name="amber_900">#FF6F00</color>
+
+    <!-- Gray -->
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <!-- Red -->
+    <color name="red_300">#E57373</color>
+    <color name="red_700">#D32F2F</color>
+
+    <!-- Básicas -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

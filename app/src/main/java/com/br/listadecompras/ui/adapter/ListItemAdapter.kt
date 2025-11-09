@@ -1,12 +1,13 @@
 package com.br.listadecompras.ui.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.br.listadecompras.R
 import com.br.listadecompras.data.model.ListItem
-import com.br.listadecompras.data.model.TypeCategoryEnum
 import com.br.listadecompras.databinding.ListItemBinding
+import androidx.core.graphics.toColorInt
 
 class ListItemAdapter(
     items: List<ListItem>,
@@ -29,22 +30,13 @@ class ListItemAdapter(
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = items[position]
 
-        holder.binding.textView.text = "${item.name} - ${item.qtde} ${item.unit}"
+        holder.binding.textView.text = "${item.name} - ${item.qtde} ${item.unit.label}"
 
-
-        val img = when (item.category) {
-            TypeCategoryEnum.FRUTA -> R.mipmap.fruta
-            TypeCategoryEnum.VERDURA -> R.mipmap.verdura
-            TypeCategoryEnum.CARNE -> R.mipmap.carne
-            TypeCategoryEnum.GRAOS -> R.mipmap.graos
-            TypeCategoryEnum.OUTROS -> R.mipmap.outros
-        }
-        holder.binding.imageView.setImageResource(img)
+        val backgroundColor = item.category.colorHex.toColorInt()
+        holder.binding.root.setBackgroundColor(backgroundColor)
 
         holder.binding.checkBox.isChecked = item.checked
-
         holder.binding.checkBox.setOnCheckedChangeListener(null)
-
         holder.binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
             onCheckedChange(item, isChecked)
         }
@@ -53,6 +45,7 @@ class ListItemAdapter(
             onItemClick(item)
         }
     }
+
 
 
     override fun getItemCount() = items.size

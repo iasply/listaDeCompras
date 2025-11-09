@@ -1,37 +1,50 @@
 package com.br.listadecompras.ui.fragment
 
+import TypeCategoryEnum
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.br.listadecompras.Const
 import com.br.listadecompras.R
 import com.br.listadecompras.data.model.ListItem
-import com.br.listadecompras.data.model.TypeCategoryEnum
 import com.br.listadecompras.data.model.TypeUnitEnum
 import com.br.listadecompras.databinding.FragmentCreateListItemBinding
 import com.br.listadecompras.ui.viewmodel.CreateListItemViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
 
     private lateinit var binding: FragmentCreateListItemBinding
     private val viewModel: CreateListItemViewModel by viewModels()
 
-    private var editingItem: ListItem? = null
-    private var listAggregatorId: Int = -1
+    private var listAggregatorId: String = ""
+    private var editingItemId: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding = FragmentCreateListItemBinding.bind(view)
 
-        listAggregatorId = arguments?.getInt(Const.AGGREGATOR_ID_BUNDLE) ?: -1
-        val itemId = arguments?.getInt(Const.ITEM_ID_BUNDLE)
-
         setupSpinners()
-        setupSaveButton(itemId)
+        binding.toolbar.title = findNavController().currentDestination?.label
+
+        listAggregatorId = arguments?.getString(Const.AGGREGATOR_ID_BUNDLE) ?: ""
+        editingItemId = arguments?.getString(Const.ITEM_ID_BUNDLE) 
+
+        editingItemId?.let { viewModel.load(listAggregatorId, it) }
+        editingItemId?.let { binding.buttonDelete.isEnabled = false }
+        if (editingItemId == null) {
+            binding.editTextName.hint = "Nome do item"
+            binding.editTextQtde.hint = "Quantidade"
+        }
+
+        initObservers()
+
+        binding.buttonSave.setOnClickListener { saveItem() }
     }
 
     private fun setupSpinners() {
@@ -39,113 +52,90 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
             requireContext(),
             android.R.layout.simple_spinner_item,
             TypeUnitEnum.entries.toTypedArray()
-        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        ).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
 
         binding.spinnerCategory.adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             TypeCategoryEnum.entries.toTypedArray()
-        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        ).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
     }
 
-    private fun setupSaveButton(itemId: Int?) {
-        if (itemId != null && itemId != 0) {
-            editingItem = viewModel.getById(itemId)
-            editingItem?.let { item ->
-                binding.editTextName.setText(item.name)
-                binding.editTextQtde.setText(item.qtde.toString())
-
-                binding.spinnerUnit.setSelection(TypeUnitEnum.entries.indexOf(item.unit))
-                binding.spinnerCategory.setSelection(TypeCategoryEnum.entries.indexOf(item.category))
-
-                binding.buttonSave.text = "Atualizar"
-                binding.buttonDelete.visibility = View.VISIBLE
-
-                binding.buttonDelete.setOnClickListener {
-                    viewModel.delete(item.id!!)
-                    Toast.makeText(requireContext(), "Item deletado", Toast.LENGTH_SHORT).show()
-                    navigateBack()
-                }
-
-                binding.buttonSave.setOnClickListener {
-                    val name = binding.editTextName.text.toString()
-                    val qtde = binding.editTextQtde.text.toString().toIntOrNull()
-                    val unit = binding.spinnerUnit.selectedItem as TypeUnitEnum
-                    val category = binding.spinnerCategory.selectedItem as TypeCategoryEnum
-
-                    if (name.isBlank() || qtde == null) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Preencha todos os campos",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        return@setOnClickListener
+    private fun initObservers() {
+        lifecycleScope.launch {
+            viewModel.state.collectLatest { state ->
+                when (state) {
+                    is CreateListItemViewModel.UiState.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
                     }
 
-                    val updatedItem = item.copy(
-                        name = name,
-                        qtde = qtde,
-                        unit = unit,
-                        category = category
-                    )
-
-                    if (viewModel.updateItem(updatedItem)) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Item atualizado com sucesso!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    is CreateListItemViewModel.UiState.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                         navigateBack()
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Erro ao atualizar item",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
-                }
-            }
-        } else {
-            binding.buttonDelete.visibility = View.GONE
-            binding.buttonSave.setOnClickListener {
-                val name = binding.editTextName.text.toString()
-                val qtde = binding.editTextQtde.text.toString().toIntOrNull()
-                val unit = binding.spinnerUnit.selectedItem as TypeUnitEnum
-                val category = binding.spinnerCategory.selectedItem as TypeCategoryEnum
 
-                if (name.isBlank() || qtde == null) {
-                    Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT)
-                        .show()
-                    return@setOnClickListener
-                }
+                    is CreateListItemViewModel.UiState.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                    }
 
-                val newItem = ListItem(
-                    id = null,
-                    name = name,
-                    qtde = qtde,
-                    unit = unit,
-                    category = category,
-                    checked = false,
-                    idListAggregator = listAggregatorId
-                )
+                    is CreateListItemViewModel.UiState.Loaded -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.buttonSave.text = "Atualizar"
+                        binding.buttonDelete.isEnabled = true
+                        binding.buttonDelete.apply {
+                            visibility = View.VISIBLE
+                            setOnClickListener { viewModel.delete(listAggregatorId, editingItemId!!) }
+                        }
 
-                if (viewModel.saveItem(newItem)) {
-                    Toast.makeText(requireContext(), "Item salvo com sucesso!", Toast.LENGTH_SHORT)
-                        .show()
-                    navigateBack()
-                } else {
-                    Toast.makeText(requireContext(), "Item já existe!", Toast.LENGTH_SHORT).show()
+                        val item = state.item
+                        binding.editTextName.setText(item.name)
+                        binding.editTextQtde.setText(item.qtde.toString())
+                        binding.spinnerUnit.setSelection(item.unit.ordinal)
+                        binding.spinnerCategory.setSelection(item.category.ordinal)
+                    }
+
+                    null -> Unit
                 }
             }
         }
-        binding.toolbar.title = findNavController().currentDestination?.label
+    }
 
+    private fun saveItem() {
+        val name = binding.editTextName.text.toString().trim()
+        val qtde = binding.editTextQtde.text.toString().toIntOrNull()
+        val unit = binding.spinnerUnit.selectedItem as TypeUnitEnum
+        val category = binding.spinnerCategory.selectedItem as TypeCategoryEnum
+
+        if (name.isBlank() || qtde == null) {
+            Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val item = ListItem(
+            id = editingItemId,
+            name = name,
+            qtde = qtde,
+            unit = unit,
+            category = category,
+            idListAggregator = listAggregatorId
+        )
+
+        if (editingItemId == null)
+            viewModel.create(listAggregatorId, item)
+        else
+            viewModel.update(listAggregatorId, item)
     }
 
     private fun navigateBack() {
         findNavController().navigate(
             R.id.action_createListItemFragment_to_listAggregatorFragment,
-            Bundle().apply { putInt(Const.AGGREGATOR_ID_BUNDLE, listAggregatorId) }
+            Bundle().apply { putString(Const.AGGREGATOR_ID_BUNDLE, listAggregatorId) }
         )
     }
 }

@@ -1,11 +1,13 @@
 package com.br.listadecompras.data.model
 
+import TypeCategoryEnum
+
 data class ListItem(
-    var id: Int?,
-    val name: String,
-    val qtde: Int,
-    val unit: TypeUnitEnum,
-    val category: TypeCategoryEnum,
-    val checked: Boolean,
-    val idListAggregator: Int
+    var id: String? = null,
+    val name: String = "",
+    val qtde: Int = 0,
+    val unit: TypeUnitEnum = TypeUnitEnum.UN,
+    val category: TypeCategoryEnum = TypeCategoryEnum.OUTROS,
+    val checked: Boolean = false,
+    val idListAggregator: String = ""
 )

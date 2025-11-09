@@ -17,7 +17,7 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentCreateAccountBinding.bind(view)
-
+        binding.toolbar.title = findNavController().currentDestination?.label
         setupObservers()
         setupListeners()
     }
@@ -34,18 +34,27 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
     }
 
     private fun setupObservers() {
-        viewModel.createAccountResult.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CreateAccountViewModel.UiState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.btnRegister.isEnabled = false
+                }
 
-                if (it == "Cadastro realizado com sucesso") {
+                is CreateAccountViewModel.UiState.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.btnRegister.isEnabled = true
+                    Toast.makeText(requireContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
                 }
 
-                viewModel.clearResult()
+                is CreateAccountViewModel.UiState.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.btnRegister.isEnabled = true
+                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
-        binding.toolbar.title = findNavController().currentDestination?.label
 
     }
 }

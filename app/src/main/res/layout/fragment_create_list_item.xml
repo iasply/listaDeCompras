@@ -28,7 +28,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="32dp"
-        android:hint="Nome do item"
+
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:hint="Quantidade"
         android:inputType="number"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,30 +72,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerUnit" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSave"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        android:layout_height="56dp"
         android:text="Salvar Item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonDelete"
-        android:layout_width="0dp"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        android:enabled="false"
         android:text="Deletar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSave"
-        tools:visibility="invisible" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSave" />
+
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:indicatorSize="48dp"
+        app:trackThickness="4dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

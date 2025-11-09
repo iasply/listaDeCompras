@@ -44,12 +44,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonPickImage"
-
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="32dp"
+        android:layout_height="56dp"
         android:text="Escolher Imagem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,9 +60,10 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSave"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
+        android:layout_height="56dp"
+
         android:layout_marginEnd="32dp"
         android:text="Salvar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,16 +74,29 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonDelete"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="32dp"
+        android:layout_height="56dp"
+        style="@style/Widget.Material3.Button.TextButton"
         android:text="Deletar"
-        android:visibility="invisible"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPickImage"
         app:layout_constraintVertical_bias="0.015" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:indicatorSize="48dp"
+        app:trackThickness="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

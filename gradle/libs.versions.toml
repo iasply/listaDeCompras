@@ -1,5 +1,5 @@
 [versions]
-agp = "8.11.2"
+agp = "8.12.3"
 kotlin = "2.0.21"
 coreKtx = "1.17.0"
 junit = "4.13.2"
@@ -10,6 +10,8 @@ material = "1.13.0"
 navigationFragment = "2.9.4"
 constraintlayout = "2.2.1"
 recyclerview = "1.4.0"
+firebaseAuthKtx = "24.0.1"
+firebaseStorageKtx = "22.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -21,6 +23,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version = "23.2.1" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

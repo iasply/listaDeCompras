@@ -10,6 +10,7 @@ import com.br.listadecompras.Const
 import com.br.listadecompras.R
 import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.databinding.ListAggregatorItemBinding
+import com.bumptech.glide.Glide
 
 class ListAggregatorItemAdapter(items: List<ListItemAggregator>) :
     RecyclerView.Adapter<ListAggregatorItemAdapter.ListViewHolder>() {
@@ -30,13 +31,18 @@ class ListAggregatorItemAdapter(items: List<ListItemAggregator>) :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = items[position]
-        holder.binding.itemImage.setImageURI(item.imageUri.toUri())
+        Glide.with(holder.itemView.context)
+            .load(item.imageUri ?: "")
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+            .into(holder.binding.itemImage)
+
         holder.binding.itemText.text = item.name
 
         holder.binding.root.setOnClickListener {
             holder.binding.root.findNavController().navigate(
                 R.id.action_homeFragment_to_listAggregatorFragment,
-                Bundle().apply { putInt(Const.AGGREGATOR_ID_BUNDLE, item.id ?: 0) })
+                Bundle().apply { putString(Const.AGGREGATOR_ID_BUNDLE, item.id ?: "") })
         }
     }
 

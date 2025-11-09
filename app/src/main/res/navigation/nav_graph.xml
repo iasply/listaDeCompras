@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_loginFragment_to_createAccountFragment"
             app:destination="@id/createAccountFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
 
     </fragment>
 
@@ -66,37 +69,49 @@
         <action
             android:id="@+id/action_createListAggregatorFragment_to_listAggregatorFragment"
             app:destination="@id/ListAggregatorFragment"
-            app:popUpTo="@id/createListAggregatorFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/ListAggregatorFragment"
+            app:popUpToInclusive="true"  />
 
     </fragment>
 
     <fragment
         android:id="@+id/ListAggregatorFragment"
         android:name="com.br.listadecompras.ui.fragment.ListAggregatorFragment"
-        android:label="Items Da Lista">
+        android:label="Itens da Lista">
         <action
             android:id="@+id/action_listAggregatorFragment_to_createListItemFragment"
-            app:destination="@id/createListItemFragment" />
+            app:destination="@id/createListItemFragment"
+            app:popUpTo="@id/ListAggregatorFragment"
+            app:popUpToInclusive="false" />
+
 
         <action android:id="@+id/action_listAggregatorFragment_to_createListAggregatorFragment"
-            app:destination="@+id/createListAggregatorFragment"/>
+            app:destination="@+id/createListAggregatorFragment"
+            app:popUpTo="@id/ListAggregatorFragment"
+            app:popUpToInclusive="false"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/createListItemFragment"
         android:name="com.br.listadecompras.ui.fragment.CreateListItemFragment"
-        android:label="Criar Item Na Lista"  >
-    <action
-        android:id="@+id/action_createListItemFragment_to_listAggregatorFragment"
-        app:destination="@id/ListAggregatorFragment"
-        app:popUpTo="@id/createListItemFragment"
-        app:popUpToInclusive="true"
-        />
-
-
+        android:label="Criar Item na Lista"  >
+        <action
+            android:id="@+id/action_createListItemFragment_to_listAggregatorFragment"
+            app:destination="@id/ListAggregatorFragment"
+            app:popUpTo="@id/ListAggregatorFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.br.listadecompras.ui.fragment.ResetPasswordFragment"
+        android:label="Resetar Senha">
+        <action
+            android:id="@+id/action_resetPassword_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
