@@ -65,6 +65,7 @@ class LoginViewModel : ViewModel() {
                     else -> "Usuário inválido: ${ex.localizedMessage ?: ex.message}"
                 }
             }
+
             is FirebaseAuthInvalidCredentialsException -> {
                 val code = (ex as? FirebaseAuthException)?.errorCode ?: ""
                 return when (code) {

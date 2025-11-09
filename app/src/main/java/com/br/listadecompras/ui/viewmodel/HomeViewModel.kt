@@ -1,6 +1,9 @@
 package com.br.listadecompras.ui.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.br.listadecompras.Session
 import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.data.repository.ListItemAggregatorRepository
@@ -11,6 +14,7 @@ class HomeViewModel : ViewModel() {
 
     private val listItemAggregatorRepository = ListItemAggregatorRepository()
     private var cachedLists: List<ListItemAggregator> = emptyList()
+
     sealed class UiState {
         object Loading : UiState()
         data class Success(val lists: List<ListItemAggregator>) : UiState()

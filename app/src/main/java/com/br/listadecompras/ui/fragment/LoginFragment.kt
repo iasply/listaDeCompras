@@ -18,7 +18,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Session.userLogged?.let{ findNavController().navigate(R.id.action_loginFragment_to_homeFragment)}
+        Session.userLogged?.let { findNavController().navigate(R.id.action_loginFragment_to_homeFragment) }
         binding = FragmentLoginBinding.bind(view)
 
         Glide.with(this)

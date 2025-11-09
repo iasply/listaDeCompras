@@ -92,6 +92,7 @@ class ListAggregatorFragment : Fragment(R.layout.fragment_list_aggregator) {
                         Bundle().apply { putString(Const.AGGREGATOR_ID_BUNDLE, listAggregatorId) })
                     true
                 }
+
                 else -> false
             }
         }

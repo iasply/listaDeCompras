@@ -70,7 +70,7 @@
             android:id="@+id/action_createListAggregatorFragment_to_listAggregatorFragment"
             app:destination="@id/ListAggregatorFragment"
             app:popUpTo="@id/ListAggregatorFragment"
-            app:popUpToInclusive="true"  />
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -85,17 +85,18 @@
             app:popUpToInclusive="false" />
 
 
-        <action android:id="@+id/action_listAggregatorFragment_to_createListAggregatorFragment"
+        <action
+            android:id="@+id/action_listAggregatorFragment_to_createListAggregatorFragment"
             app:destination="@+id/createListAggregatorFragment"
             app:popUpTo="@id/ListAggregatorFragment"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false" />
 
     </fragment>
 
     <fragment
         android:id="@+id/createListItemFragment"
         android:name="com.br.listadecompras.ui.fragment.CreateListItemFragment"
-        android:label="Criar Item na Lista"  >
+        android:label="Criar Item na Lista">
         <action
             android:id="@+id/action_createListItemFragment_to_listAggregatorFragment"
             app:destination="@id/ListAggregatorFragment"

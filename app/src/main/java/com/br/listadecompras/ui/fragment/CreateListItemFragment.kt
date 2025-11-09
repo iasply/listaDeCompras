@@ -36,7 +36,7 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
         binding.toolbar.title = findNavController().currentDestination?.label
 
         listAggregatorId = arguments?.getString(Const.AGGREGATOR_ID_BUNDLE) ?: ""
-        editingItemId = arguments?.getString(Const.ITEM_ID_BUNDLE) 
+        editingItemId = arguments?.getString(Const.ITEM_ID_BUNDLE)
 
         editingItemId?.let { viewModel.load(listAggregatorId, it) }
         editingItemId?.let { binding.buttonDelete.isEnabled = false }
@@ -93,7 +93,12 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
                         binding.buttonDelete.isEnabled = true
                         binding.buttonDelete.apply {
                             visibility = View.VISIBLE
-                            setOnClickListener { viewModel.delete(listAggregatorId, editingItemId!!) }
+                            setOnClickListener {
+                                viewModel.delete(
+                                    listAggregatorId,
+                                    editingItemId!!
+                                )
+                            }
                         }
 
                         val item = state.item

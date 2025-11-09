@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -123,7 +122,7 @@ class CreateListAggregatorFragment : Fragment(R.layout.fragment_create_list_aggr
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
-                is CreateListAggregatorViewModel.UiState.Loaded ->{
+                is CreateListAggregatorViewModel.UiState.Loaded -> {
                     binding.progressBar.visibility = View.GONE
                 }
             }

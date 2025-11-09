@@ -1,7 +1,10 @@
 package com.br.listadecompras.ui.viewmodel
 
 import android.net.Uri
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.br.listadecompras.Session
 import com.br.listadecompras.data.model.ListItemAggregator
 import com.br.listadecompras.data.repository.ListItemAggregatorRepository
@@ -10,7 +13,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.util.*
+import java.util.Date
+import java.util.UUID
 
 class CreateListAggregatorViewModel : ViewModel() {
 
@@ -24,7 +28,6 @@ class CreateListAggregatorViewModel : ViewModel() {
     val item: LiveData<ListItemAggregator?> = _item
 
 
-
     fun load(id: String) {
         val userId = Session.userLogged?.id ?: return
         viewModelScope.launch {
@@ -34,6 +37,7 @@ class CreateListAggregatorViewModel : ViewModel() {
             _state.value = UiState.Loaded("Lista carregada com sucesso.")
         }
     }
+
     fun save(uri: Uri?, name: String, existingId: String? = null) {
         val user = Session.userLogged ?: return
 
@@ -50,7 +54,8 @@ class CreateListAggregatorViewModel : ViewModel() {
                 var imageUrl: String? = null
 
                 if (uri != null) {
-                    val imageRef = storage.reference.child("aggregators/${user.id}/${UUID.randomUUID()}")
+                    val imageRef =
+                        storage.reference.child("aggregators/${user.id}/${UUID.randomUUID()}")
                     imageRef.putFile(uri).await()
                     imageUrl = imageRef.downloadUrl.await().toString()
                 }
@@ -78,7 +83,8 @@ class CreateListAggregatorViewModel : ViewModel() {
                 }
 
                 _state.value = if (success) {
-                    val msg = if (existingId == null) "Lista criada com sucesso!" else "Lista atualizada com sucesso!"
+                    val msg =
+                        if (existingId == null) "Lista criada com sucesso!" else "Lista atualizada com sucesso!"
                     UiState.Success(msg)
                 } else {
                     UiState.Error("Erro ao salvar lista.")
@@ -116,10 +122,11 @@ class CreateListAggregatorViewModel : ViewModel() {
             }
         }
     }
+
     sealed class UiState {
         object Loading : UiState()
         data class Success(val message: String) : UiState()
-        data class Loaded (val message: String): UiState()
+        data class Loaded(val message: String) : UiState()
         data class Deleted(val message: String) : UiState()
         data class Error(val message: String) : UiState()
     }

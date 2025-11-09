@@ -42,6 +42,7 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
                 is ResetPasswordViewModel.UiState.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is ResetPasswordViewModel.UiState.Success -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(
@@ -51,6 +52,7 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
                     ).show()
                     findNavController().navigate(R.id.action_resetPassword_to_loginFragment)
                 }
+
                 is ResetPasswordViewModel.UiState.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()

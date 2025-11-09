@@ -27,7 +27,8 @@ class CreateListItemViewModel : ViewModel() {
         viewModelScope.launch {
             _state.value = UiState.Loading
             try {
-                val userId = Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
+                val userId =
+                    Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
                 val item = listItemRepository.getById(userId, listId, itemId)
                 if (item != null) {
                     _state.value = UiState.Loaded(item)
@@ -44,7 +45,8 @@ class CreateListItemViewModel : ViewModel() {
         viewModelScope.launch {
             _state.value = UiState.Loading
             try {
-                val userId = Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
+                val userId =
+                    Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
                 val success = listItemRepository.create(userId, listId, item)
                 _state.value = if (success)
                     UiState.Success("Item criado com sucesso!")
@@ -60,7 +62,8 @@ class CreateListItemViewModel : ViewModel() {
         viewModelScope.launch {
             _state.value = UiState.Loading
             try {
-                val userId = Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
+                val userId =
+                    Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
                 val success = listItemRepository.update(userId, listId, item)
                 _state.value = if (success)
                     UiState.Success("Item atualizado com sucesso!")
@@ -76,7 +79,8 @@ class CreateListItemViewModel : ViewModel() {
         viewModelScope.launch {
             _state.value = UiState.Loading
             try {
-                val userId = Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
+                val userId =
+                    Session.userLogged?.id ?: throw IllegalStateException("Usuário não logado")
                 val success = listItemRepository.delete(userId, listId, itemId)
                 _state.value = if (success)
                     UiState.Success("Item excluído com sucesso!")

@@ -18,7 +18,9 @@ class ListAggregatorViewModel : ViewModel() {
 
     sealed class UiState {
         object Loading : UiState()
-        data class Success(val items: List<ListItem>, val aggregator: ListItemAggregator) : UiState()
+        data class Success(val items: List<ListItem>, val aggregator: ListItemAggregator) :
+            UiState()
+
         data class Error(val message: String) : UiState()
     }
 
@@ -38,7 +40,8 @@ class ListAggregatorViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val items = listItemRepository.getAllByListAggregator(userId, listAggregatorId)
-                val aggregator = listItemAggregatorRepository.getById(userId, listAggregatorId)  ?: throw Exception("Agregador não encontrado")
+                val aggregator = listItemAggregatorRepository.getById(userId, listAggregatorId)
+                    ?: throw Exception("Agregador não encontrado")
                 cachedItems[listAggregatorId] = items
                 cachedAggregators[listAggregatorId] = aggregator
                 _state.value = UiState.Success(items, aggregator)
@@ -66,7 +69,10 @@ class ListAggregatorViewModel : ViewModel() {
                 cachedItems[listAggregatorId] = updatedList
 
                 val aggregator = cachedAggregators[listAggregatorId] ?: run {
-                    val agg = listItemAggregatorRepository.getById(Session.userLogged!!.id!!, listAggregatorId)
+                    val agg = listItemAggregatorRepository.getById(
+                        Session.userLogged!!.id!!,
+                        listAggregatorId
+                    )
                         ?: throw Exception("Agregador não encontrado")
                     cachedAggregators[listAggregatorId] = agg
                     agg
@@ -85,13 +91,17 @@ class ListAggregatorViewModel : ViewModel() {
                 val items = cachedItems[listAggregatorId] ?: run {
                     _state.value = UiState.Loading
                     val userId = Session.userLogged?.id ?: throw Exception("Usuário não logado")
-                    val fetched = listItemRepository.getAllByListAggregator(userId, listAggregatorId)
+                    val fetched =
+                        listItemRepository.getAllByListAggregator(userId, listAggregatorId)
                     cachedItems[listAggregatorId] = fetched
                     fetched
                 }
 
                 val aggregator = cachedAggregators[listAggregatorId] ?: run {
-                    val agg = listItemAggregatorRepository.getById(Session.userLogged!!.id!!, listAggregatorId)
+                    val agg = listItemAggregatorRepository.getById(
+                        Session.userLogged!!.id!!,
+                        listAggregatorId
+                    )
                         ?: throw Exception("Agregador não encontrado")
                     cachedAggregators[listAggregatorId] = agg
                     agg

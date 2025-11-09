@@ -75,6 +75,7 @@ class CreateAccountViewModel : ViewModel() {
             is FirebaseAuthWeakPasswordException -> {
                 ex.reason ?: "Senha fraca. Use pelo menos 6 caracteres"
             }
+
             is FirebaseAuthException -> {
                 when (ex.errorCode) {
                     "ERROR_INVALID_EMAIL" -> "Formato de e-mail inválido"
@@ -82,6 +83,7 @@ class CreateAccountViewModel : ViewModel() {
                     else -> ex.localizedMessage ?: "Erro de autenticação: ${ex.message}"
                 }
             }
+
             else -> ex.localizedMessage ?: ex.message ?: "Erro desconhecido"
         }
     }

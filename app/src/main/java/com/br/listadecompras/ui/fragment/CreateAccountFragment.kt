@@ -48,7 +48,11 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
                 is CreateAccountViewModel.UiState.Success -> {
                     binding.progressBar.visibility = View.GONE
                     binding.btnRegister.isEnabled = true
-                    Toast.makeText(requireContext(), "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Cadastro realizado com sucesso",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
                 }
 

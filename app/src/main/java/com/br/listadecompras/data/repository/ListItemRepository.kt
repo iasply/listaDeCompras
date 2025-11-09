@@ -74,7 +74,8 @@ class ListItemRepository {
                 .collection("items")
                 .get()
                 .await()
-            snapshot.toObjects(ListItem::class.java) .sortedWith(compareBy({ it.category }, { it.name }))
+            snapshot.toObjects(ListItem::class.java)
+                .sortedWith(compareBy({ it.category }, { it.name }))
 
         } catch (e: Exception) {
             e.printStackTrace()

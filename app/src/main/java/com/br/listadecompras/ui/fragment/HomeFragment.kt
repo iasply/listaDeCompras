@@ -57,7 +57,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (!newText.isNullOrEmpty()) { viewModel.filter(newText)}
+                if (!newText.isNullOrEmpty()) {
+                    viewModel.filter(newText)
+                }
                 return true
             }
         })
@@ -86,6 +88,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         .show()
                     true
                 }
+
                 else -> false
             }
         }
@@ -97,10 +100,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is HomeViewModel.UiState.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
+
                 is HomeViewModel.UiState.Success -> {
                     binding.progressBar.visibility = View.GONE
                     adapter.items = state.lists
                 }
+
                 is HomeViewModel.UiState.Error -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
