@@ -34,7 +34,10 @@ class CreateListAggregatorFragment : Fragment(R.layout.fragment_create_list_aggr
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCreateListAggregatorBinding.bind(view)
         binding.toolbar.title = findNavController().currentDestination?.label
-
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         initPickImage()
         initObservers()
 

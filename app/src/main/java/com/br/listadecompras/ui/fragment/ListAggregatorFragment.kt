@@ -27,7 +27,10 @@ class ListAggregatorFragment : Fragment(R.layout.fragment_list_aggregator) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListAggregatorBinding.bind(view)
         listAggregatorId = arguments?.getString(Const.AGGREGATOR_ID_BUNDLE) ?: ""
-
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         setupRecyclerView()
         setupToolbar()
         setupFab()

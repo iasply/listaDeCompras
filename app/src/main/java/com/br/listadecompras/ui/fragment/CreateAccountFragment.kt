@@ -18,6 +18,10 @@ class CreateAccountFragment : Fragment(R.layout.fragment_create_account) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentCreateAccountBinding.bind(view)
         binding.toolbar.title = findNavController().currentDestination?.label
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         setupObservers()
         setupListeners()
     }

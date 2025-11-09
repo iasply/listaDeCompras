@@ -28,7 +28,10 @@ class CreateListItemFragment : Fragment(R.layout.fragment_create_list_item) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentCreateListItemBinding.bind(view)
-
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         setupSpinners()
         binding.toolbar.title = findNavController().currentDestination?.label
 
