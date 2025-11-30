@@ -44,18 +44,24 @@ class ListItemAggregatorRepository {
 
     suspend fun delete(userId: String, listId: String): Boolean {
         return try {
-            db.collection("users")
+            val docRef = db.collection("users")
                 .document(userId)
                 .collection("lists")
                 .document(listId)
-                .delete()
-                .await()
+
+            val itemsSnapshot = docRef.collection("items").get().await()
+            for (doc in itemsSnapshot.documents) {
+                doc.reference.delete().await()
+            }
+
+            docRef.delete().await()
             true
         } catch (e: Exception) {
             e.printStackTrace()
             false
         }
     }
+
 
     suspend fun getById(userId: String, id: String): ListItemAggregator? {
         return try {
